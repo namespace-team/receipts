@@ -35,7 +35,7 @@ module Receipts
         font "Primary"
       end
 
-      font_size 8
+      font_size 10
     end
 
     def load_image(logo)
