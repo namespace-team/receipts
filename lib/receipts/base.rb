@@ -61,7 +61,7 @@ module Receipts
 
     def render_details(details, margin_top: 16)
       move_down margin_top
-      table(details, cell_style: {borders: [], inline_format: true, padding: [0, 8, 2, 0]})
+      table(details, cell_style: {borders: [], inline_format: true})
     end
 
     def render_billing_details(company:, recipient:, margin_top: 16, display_values: nil)
@@ -72,8 +72,8 @@ module Receipts
 
       line_items = [
         [
-          {content: "<b>#{company.fetch(:name)}</b>\n#{company_details}"},
-          {content: Array(recipient).join("\n")}
+          {content: "<b>#{company.fetch(:name)}</b>\n#{company_details}", padding: [0, 12, 0, 0]},
+          {content: Array(recipient).join("\n"), padding: [0, 12, 0, 0]}
         ]
       ]
       table(line_items, width: bounds.width, cell_style: {borders: [], inline_format: true, overflow: :expand})
