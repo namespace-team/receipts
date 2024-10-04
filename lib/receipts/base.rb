@@ -72,8 +72,8 @@ module Receipts
 
       line_items = [
         [
-          {content: "<b>#{company.fetch(:name)}</b>\n#{company_details}", padding: [0, 12, 0, 0]},
-          {content: Array(recipient).join("\n"), padding: [12, 12, 12, 12]}
+          {content: "<b>#{company.fetch(:name)}</b>\n#{company_details}", padding: [10, 20, 10, 20]},
+          {content: Array(recipient).join("\n"), padding: [10, 20, 10, 20]}
         ]
       ]
       table(line_items, width: bounds.width, cell_style: {borders: [], inline_format: true, overflow: :expand})
