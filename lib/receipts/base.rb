@@ -61,10 +61,10 @@ module Receipts
 
     def render_details(details, margin_top: 16)
       move_down margin_top
-      table(details, cell_style: {borders: [], inline_format: true})
+      table(details, cell_style: {borders: [], inline_format: true, padding: [0, 8, 2, 0]})
     end
 
-    def render_billing_details(company:, recipient:, margin_top: 0, display_values: nil)
+    def render_billing_details(company:, recipient:, margin_top: 16, display_values: nil)
       move_down margin_top
 
       display_values ||= company.fetch(:display, [:address, :phone, :email])
