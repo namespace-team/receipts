@@ -64,39 +64,23 @@ module Receipts
       table(details, cell_style: {borders: [], inline_format: true, padding: [0, 8, 2, 0]})
     end
 
-    # def render_billing_details(company:, recipient:, margin_top: 16, display_values: nil)
-    #   move_down margin_top
-
-    #   display_values ||= company.fetch(:display, [:address, :phone, :email])
-    #   company_details = company.values_at(*display_values).compact.join("\n")
-
-    #   line_items = [
-    #     [
-    #       {content: "<b>#{company.fetch(:name)}</b>\n#{company_details}", padding: [0, 12, 0, 0]},
-    #       {content: Array(recipient).join("\n"), padding: [0, 12, 0, 0]}
-    #     ]
-    #   ]
-    #   table(line_items, width: bounds.width, cell_style: {borders: [], inline_format: true, overflow: :expand})
-    # end
-
-    def render_billing_details(company:, recipient:, margin_top: 16, display_values: nil, leading: 2)
+    def render_billing_details(company:, recipient:, margin_top: 16, display_values: nil)
       move_down margin_top
-    
+
+      details = []
+      details << {content: "<b>#{company.fetch(:name)}</b>", padding: [0, 12, 0, 0]}
+
       display_values ||= company.fetch(:display, [:address, :phone, :email])
-      company_details = company.values_at(*display_values).compact
-    
-      # Draw company name and details with custom line spacing (leading)
-      text "<b>#{company.fetch(:name)}</b>", inline_format: true
-      move_down leading # Apply leading after the company name
-    
-      company_details.each do |detail|
-        text detail
-        move_down leading # Apply leading between each line of company details
+      company.values_at(*display_values).each do |detail|
+        details << {content: detail, padding: [0, 12, 0, 0]}
       end
-    
-      # Draw recipient information
-      move_down leading
-      text Array(recipient).join("\n")
+
+      details << {content: Array(recipient).join("\n"), padding: [0, 12, 0, 0]}
+
+      line_items = [
+        details=
+      ]
+      table(line_items, width: bounds.width, cell_style: {borders: [], inline_format: true, overflow: :expand})
     end
 
     def render_line_items(line_items:, margin_top: 30, column_widths: nil)
