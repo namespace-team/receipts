@@ -67,20 +67,16 @@ module Receipts
     def render_billing_details(company:, recipient:, margin_top: 16, display_values: nil)
       move_down margin_top
 
-      details = []
-      details << {content: "<b>#{company.fetch(:name)}</b>", padding: [0, 12, 0, 0]}
-
       display_values ||= company.fetch(:display, [:address, :phone, :email])
-      company.values_at(*display_values).split('<br>').flat_map { |part| part.split("\n").map(&:strip) }.each do |detail|
-        details << {content: detail, padding: [0, 12, 0, 0]}
-      end
-
-      details << {content: Array(recipient).join("\n"), padding: [0, 12, 0, 0]}
+      company_details = company.values_at(*display_values).compact.join("\n")
 
       line_items = [
-        details
+        [
+          {content: "<b>#{company.fetch(:name)}</b>\n<span>#{company_details}</span>", padding: [0, 12, 0, 0]},
+          {content: Array(recipient).join("\n"), padding: [0, 12, 0, 0]}
+        ]
       ]
-      table(line_items, width: bounds.width, cell_style: {borders: [], overflow: :expand})
+      table(line_items, width: bounds.width, cell_style: {borders: [], inline_format: true, overflow: :expand})
     end
 
     def render_line_items(line_items:, margin_top: 30, column_widths: nil)
@@ -108,6 +104,10 @@ module Receipts
 
     def default_message(company:)
       "For questions, contact us anytime at <color rgb='326d92'><link href='mailto:#{company.fetch(:email)}?subject=Question about my receipt'><b>#{company.fetch(:email)}</b></link></color>."
+    end
+
+    def line_gap
+      400
     end
   end
 end
