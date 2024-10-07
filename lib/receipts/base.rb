@@ -71,7 +71,7 @@ module Receipts
       details << {content: "<b>#{company.fetch(:name)}</b>", padding: [0, 12, 0, 0]}
 
       display_values ||= company.fetch(:display, [:address, :phone, :email])
-      company.values_at(*display_values).each do |detail|
+      company.values_at(*display_values).split('<br>').flat_map { |part| part.split("\n").map(&:strip) }.each do |detail|
         details << {content: detail, padding: [0, 12, 0, 0]}
       end
 
@@ -80,7 +80,7 @@ module Receipts
       line_items = [
         details
       ]
-      table(line_items, width: bounds.width, cell_style: {borders: [], inline_format: true, overflow: :expand})
+      table(line_items, width: bounds.width, cell_style: {borders: [], overflow: :expand})
     end
 
     def render_line_items(line_items:, margin_top: 30, column_widths: nil)
