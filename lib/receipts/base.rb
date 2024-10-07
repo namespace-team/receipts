@@ -78,7 +78,7 @@ module Receipts
       details << {content: Array(recipient).join("\n"), padding: [0, 12, 0, 0]}
 
       line_items = [
-        details=
+        details
       ]
       table(line_items, width: bounds.width, cell_style: {borders: [], inline_format: true, overflow: :expand})
     end
