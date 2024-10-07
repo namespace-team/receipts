@@ -72,8 +72,8 @@ module Receipts
 
       line_items = [
         [
-          {content: "<b>#{company.fetch(:name)}</b>\n<span>#{company_details}</span>", padding: [0, 12, 0, 0]},
-          {content: Array(recipient).join("\n"), padding: [0, 12, 0, 0]}
+          {content: "<b>#{company.fetch(:name)}</b>\n#{company_details}", padding: [12, 12, 0, 0]},
+          {content: Array(recipient).join("\n"), padding: [12, 12, 0, 0]}
         ]
       ]
       table(line_items, width: bounds.width, cell_style: {borders: [], inline_format: true, overflow: :expand})
@@ -104,10 +104,6 @@ module Receipts
 
     def default_message(company:)
       "For questions, contact us anytime at <color rgb='326d92'><link href='mailto:#{company.fetch(:email)}?subject=Question about my receipt'><b>#{company.fetch(:email)}</b></link></color>."
-    end
-
-    def line_gap
-      400
     end
   end
 end
